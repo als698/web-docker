@@ -32,6 +32,7 @@ RUN apk --no-cache add php8=${PHP_VERSION} \
     php8-xmlwriter \
     php8-tokenizer \
     php8-pdo_mysql \
+    mysql mysql-client \
     nginx supervisor curl tzdata htop mysql-client dcron nano
 
 RUN ln -s /usr/bin/php8 /usr/bin/php
@@ -45,6 +46,11 @@ COPY config/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
 COPY config/php.ini /etc/php8/conf.d/custom.ini
 
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+COPY --chown=nobody --chmod=755 db/data /db/data
+COPY --chown=nobody --chmod=755 db/bin /db/bin
+COPY --chown=nobody --chmod=755 config/mysql.sh /bin/mysql.sh
+COPY config/my.cnf /etc/mysql/my.cnf
 
 RUN mkdir -p /var/www/html
 
@@ -61,5 +67,4 @@ COPY --chown=nobody web/ /var/www/html/
 EXPOSE 8080
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
 HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
