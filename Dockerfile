@@ -54,9 +54,9 @@ RUN mkdir -p /var/www/html && \
     mkdir -p /db/data && \
     chown -R nobody.nobody /db && \
     mkdir -p /run/mysqld && \
-    chown -R nobody:nobody /run/mysqld && \
+    chown -R nobody.nobody /run/mysqld && \
     chmod 777 /run/mysqld && \
-    chown nobody:nobody /mysql.sh && \
+    chown nobody.nobody /mysql.sh && \
     chmod 755 /mysql.sh && \
     chown -R nobody.nobody /run && \
     chown -R nobody.nobody /var/lib/nginx && \
