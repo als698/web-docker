@@ -52,19 +52,19 @@ COPY config/my.cnf /etc/mysql/my.cnf
 
 RUN mkdir -p /var/www/html && \
     mkdir -p /db/data && \
-    mkdir -p /run/mysqld
+    chown -R nobody.nobody /db && \
+    mkdir -p /run/mysqld && \
+    chown -R nobody:nobody /run/mysqld && \
+    chmod 777 /run/mysqld && \
+    chown nobody:nobody /mysql.sh && \
+    chmod 755 /mysql.sh && \
+    chown -R nobody.nobody /run && \
+    chown -R nobody.nobody /var/lib/nginx && \
+    chown -R nobody.nobody /var/log/nginx
 
 COPY web/ /var/www/html/
 
-RUN chown -R nobody.nobody /var/www/html && \
-  chown -R nobody.nobody /run && \
-  chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/log/nginx && \
-  chown -R nobody.nobody /db && \
-  chown -R nobody:nobody /run/mysqld && \
-  chown nobody:nobody /mysql.sh && \
-  chmod 755 /mysql.sh \
-  chmod 777 /run/mysqld
+RUN chown -R nobody.nobody /var/www/html
 
 USER nobody
 
