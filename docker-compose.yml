@@ -10,3 +10,5 @@ services:
       - ./web:/var/www/html
     ports:
       - "80:8080"
+    # environment:
+      # IMPORT_DB: 1
