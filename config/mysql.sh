@@ -36,9 +36,10 @@ else
     echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: creating database"
     mysql_install_db --user=nobody > /dev/null
     echo "USE mysql;" >> $tfile
-    echo "FLUSH PRIVILEGES;" >> $tfile
     echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;" >> $tfile
     echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;" >> $tfile
+    echo "DROP DATABASE IF EXISTS test;" >> $tfile
+    echo "FLUSH PRIVILEGES;" >> $tfile
 fi
 
 if [ -d /db/data/${MYSQL_DATABASE} ]; then
