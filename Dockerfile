@@ -33,7 +33,7 @@ RUN apk --no-cache add php8=${PHP_VERSION} \
     php8-tokenizer \
     php8-pdo_mysql \
     mysql mysql-client \
-    nginx supervisor curl tzdata htop mysql-client dcron nano
+    nginx supervisor curl tzdata htop dcron nano bash
 
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
@@ -47,22 +47,29 @@ COPY config/php.ini /etc/php8/conf.d/custom.ini
 
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY --chown=nobody --chmod=755 db/data /db/data
-COPY --chown=nobody --chmod=755 db/bin /db/bin
-COPY --chown=nobody --chmod=755 config/mysql.sh /bin/mysql.sh
+COPY config/mysql.sh /mysql.sh
 COPY config/my.cnf /etc/mysql/my.cnf
 
 RUN mkdir -p /var/www/html
+RUN mkdir -p /db/data
+
+COPY web/ /var/www/html/
+
+RUN mkdir -p /run/mysqld
+RUN chown -R nobody:nobody /run/mysqld
+RUN chmod 777 /run/mysqld
 
 RUN chown -R nobody.nobody /var/www/html && \
   chown -R nobody.nobody /run && \
   chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/log/nginx
+  chown -R nobody.nobody /var/log/nginx && \
+  chown -R nobody.nobody /db && \
+  chown nobody:nobody /mysql.sh && \
+  chmod 755 /mysql.sh
 
 USER nobody
 
 WORKDIR /var/www/html
-COPY --chown=nobody web/ /var/www/html/
 
 EXPOSE 8080
 EXPOSE 3306
