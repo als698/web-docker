@@ -50,5 +50,8 @@ db/import.sql - Import database - /db/import.sql
 web/ - Web files - /var/www/html/
 ```
 
+## Fix
+[ ] Database bind
+
 ## Acknowledgements
 This image was inspired by [khromov/alpine-nginx-php8](https://github.com/khromov/alpine-nginx-php8), [TrafeX/docker-php-nginx](https://github.com/TrafeX/docker-php-nginx), [wangxian/alpine-mysql](https://github.com/wangxian/alpine-mysql) and [this subsequent fork](https://github.com/khromov/docker-php-nginx)
