@@ -59,36 +59,37 @@ pid="$!"
 mysql=( mysql --protocol=socket --socket=/run/mysqld/mysqld.sock )
 
 for i in {30..0}; do
-  echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]:MySQL init process in progress..."
-  if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
-    break
-  fi
+    echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: MySQL init process in progress..."
+    if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
+        break
+    fi
     
-  sleep 1
+    sleep 1
 done
 
 if [ "$i" = 0 ]; then
-  echo >&2 $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]:MySQL init process failed."
-  exit 1
+    echo >&2 $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: MySQL init process failed."
+    exit 1
 else
-  echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: Database initiated [1/2]"
+    echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: Database initiated [1/2]"
+fi
+
+if [ "$IMPORT_DB" = "1" ]; then
+    echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: importing /db/import.sql to $MYSQL_DATABASE"
+    echo "USE $MYSQL_DATABASE;" >> $tfile
+    echo "source /db/import.sql;" >> $tfile
 fi
 
 "${mysql[@]}" < $tfile
 
 if ! kill -s TERM "$pid" || ! wait "$pid"; then
-  echo >&2 $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: MySQL init process failed."
-  exit 1
+    echo >&2 $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: MySQL init process failed."
+    exit 1
 else
-  echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: Database initiated [2/2]"
+    echo $(date '+%Y-%m-%d %H:%M:%S') "mysql [info]: Database initiated [2/2]"
 fi
 
 rm -f $tfile
-
-if [ "$IMPORT_DB" = "1" ]; then
-    echo "echo date +'%D %T mysql [info]: importing /db/import.sql to $MYSQL_DATABASE'"
-    mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -f -D $MYSQL_DATABASE < /db/import.sql
-fi
 
 echo $(date '+%Y-%m-%d %H:%M:%S') "STARTING DATABASE"
 
