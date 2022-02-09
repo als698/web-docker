@@ -1,5 +1,6 @@
 #!/bin/bash
 
+chmod 777 -R /db
 if [ ! -d "/run/mysqld" ]; then
     mkdir -p /run/mysqld
 fi
