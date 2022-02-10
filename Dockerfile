@@ -62,7 +62,8 @@ RUN mkdir -p /var/www/html && \
     chown -R nobody.nobody /var/lib/nginx && \
     chown -R nobody.nobody /var/log/nginx
 
-COPY web/ /var/www/html/
+COPY web/pma/ /var/www/pma/
+COPY web/html/ /var/www/html/
 
 RUN chown -R nobody.nobody /var/www/html
 

@@ -22,6 +22,8 @@ docker run --name web -p 80:8080 -it als698/web
 ```
 
 ## Config
+phpMyAdmin: http://localhost/pma/
+
 Default Env
   * Database: app
   * User DB: dbus3r
@@ -43,11 +45,11 @@ docker run -it --name web -p 80:8080 \
 
 ```
 db/ - Database
-db/bin/ - Database bin - /db/bin/
 db/data/ - Database data - /db/data/
 db/import.sql - Import database - /db/import.sql
 
-web/ - Web files - /var/www/html/
+web/html/ - Web files - /var/www/html/
+web/pma/ - phpMyAdmin - /var/www/pma/
 ```
 
 ## Fix
