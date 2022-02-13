@@ -4,11 +4,14 @@ services:
   web:
     container_name: web
     image: als698/web:latest
-    # build:
-      # context: .
     volumes:
-      - ./web/html:/var/www/html
+      - web:/var/www/html # ./web/html:/var/www/html #local edit
+      - db:/db
     ports:
-      - "80:8080"
+      - "80:80"
     # environment:
       # IMPORT_DB: 1
+
+volumes:
+  web:
+  db:
