@@ -2,13 +2,35 @@ version: "3.8"
 
 services:
   web:
+    image: als698/web:compose
     container_name: web
-    image: als698/web:latest
-    # build:
-      # context: .
     volumes:
-      - ./web/html:/var/www/html
+      - web_data:/var/www/html # ./web-data:/var/www/html #for local edit
+      - pma:/var/www/pma
+      - db:/db
     ports:
-      - "80:8080"
+      - "80:80"
+    links:
+      - php
+    networks:
+      - web_network
     # environment:
       # IMPORT_DB: 1
+    
+  php:
+    image: als698/php:latest
+    container_name: php
+    volumes:
+      - web_data:/var/www/html # ./web-data:/var/www/html #for local edit
+      - pma:/var/www/pma
+    networks:
+      - web_network
+
+volumes:
+  web_data:
+  pma:
+  db:
+
+networks:
+  web_network:
+    driver: bridge
