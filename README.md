@@ -39,7 +39,7 @@ web/pma.zip - phpMyAdmin - /var/www/pma/
 ```
 
 ## Fix
-[x] Database bind
+[x] Database bind  
 [x] PHP Glob function
 
 ## Acknowledgements
