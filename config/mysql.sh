@@ -98,9 +98,9 @@ fi
 if [ ! -f "/var/www/html/index.php" ]; then
     cp /index.php /var/www/html/
 fi
-chmod -R 777 /var/www/
-chmod -R 644 /var/www/*/config*.php
-chown -R nobody.nobody /var/www
+chmod -R 777 /var/www/pma
+chmod -R 644 /var/www/pma/config*.php
+chown -R nobody.nobody /var/www/pma
 
 echo $(date '+%Y-%m-%d %H:%M:%S') "STARTING DATABASE"
 
