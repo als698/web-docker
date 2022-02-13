@@ -18,7 +18,7 @@ docker pull als698/web
 
 ## Run
 ```
-docker run --name web -p 80:8080 -it als698/web
+docker run --name web -p 80:80 -it als698/web
 ```
 
 ## Config
@@ -33,7 +33,7 @@ Default Env
 
 ## Docker Run Env
 ```
-docker run -it --name web -p 80:8080 \
+docker run -it --name web -p 80:80 \
   -e MYSQL_DATABASE=dbName \
   -e MYSQL_USER=uName \
   -e MYSQL_PASSWORD=pAss \
