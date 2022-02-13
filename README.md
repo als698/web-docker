@@ -48,12 +48,14 @@ db/ - Database
 db/data/ - Database data - /db/data/
 db/import.sql - Import database - /db/import.sql
 
-web/html/ - Web files - /var/www/html/
-web/pma/ - phpMyAdmin - /var/www/pma/
+web/index.php - Web files - /var/www/html/
+web/pma.zip - phpMyAdmin - /var/www/pma/
 ```
 
 ## Fix
-[ ] Database bind
+[ ] Database bind  
+[ ] PHP Glob function  
+[Fixed in compose version](https://github.com/als698/web-docker/tree/compose)
 
 ## Acknowledgements
 This image was inspired by [khromov/alpine-nginx-php8](https://github.com/khromov/alpine-nginx-php8), [TrafeX/docker-php-nginx](https://github.com/TrafeX/docker-php-nginx), [wangxian/alpine-mysql](https://github.com/wangxian/alpine-mysql) and [this subsequent fork](https://github.com/khromov/docker-php-nginx)
